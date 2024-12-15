@@ -3,39 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Date Website</title>
+    <title>Would You Go Out With Me?</title>
     <style>
+        /* General Page Styling */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
+            height: 100vh;
+            background-color: #f0e7ff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
         }
-        .container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+
         h1 {
-            color: #333;
-            margin-bottom: 1rem;
+            color: #9b59b6;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
         }
+
+        /* Heart Decorations */
+        .heart {
+            color: red;
+            font-size: 2rem;
+            position: absolute;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* Buttons */
+        .button-container {
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;  /* add space between the question and buttons */
+        }
+
+        #yes-button {
+            margin-right: 20px;
+        }
+
+        button {
+            background-color: #ff3b7d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        button:hover {
+            background-color: #e6336d;
+        }
+
+        /* Centered GIF (Positioned Above) */
+        .gif-container {
+            display: none;
+            position: relative;  /* Set relative to allow positioning within the body */
+            top: -70px;  /* Move the GIF above the text */
+            left: 0%;
+            transform: translateX(0%);  /* Center horizontally */
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 70vw;  /* 40% of the viewport's width */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;  /* Ensure it doesn't exceed the container's width */
+        }
+
+        #message {
+            display: none;
+        }
+
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to My Website</h1>
-        <p>Today's date is: <span id="current-date"></span></p>
+    <!-- Decorative Hearts -->
+    <div class="heart" style="top: 20%; left: 10%;">❤️</div>
+    <div class="heart" style="top: 50%; right: 15%;">❤️</div>
+    <div class="heart" style="bottom: 10%; left: 30%;">❤️</div>
+
+    <h1 id="message">Really? I will be very sad</h1>
+    <br>
+    <!-- Centered GIF -->
+    <div class="gif-container" id="gif-container">
+        <img id="gif" src="" alt="Sad GIF">
     </div>
 
+    <!-- Main Content -->
+    <h1>Would you like to go out with me for a date?</h1>
+    <div class="button-container">
+        <button id="yes-button" onclick="showYesMessage()">Yes</button>
+        <button id="no-button" onclick="animateNoButton()">No</button>
+    </div>
+
+    <!-- Decorative Hearts -->
+    <div class="heart" style="bottom: 20%; right: 20%;">❤️</div>
+    <div class="heart" style="top: 60%; left: 40%;">❤️</div>
+
+    <!-- JavaScript -->
     <script>
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+
+        let yesButtonScale = 1;  // Initial scale factor of 1 (no scaling)
+        let noButtonClickCount = -1;
+
+        // Array of messages to change after each "No" click
+        const messages = [
+            "Really? I will be very sad",
+            "No Please. I'm begging you",
+            "PLEASEEEEEEE"
+        ];
+
+        // Array of different GIFs for each "No" click
+        const gifs = [
+            "https://media.giphy.com/media/OjiSLBg7s27kaIGS8o/giphy.gif?cid=790b7611j7jazxljtc1d3qhbwbo7xkuhd6v6jir55ogy4165&ep=v1_gifs_search&rid=giphy.gif&ct=g",  // First GIF
+            "https://media.tenor.com/4Lx669r2CS8AAAAM/dudu-crying-dudu-cute.gif",  // Second GIF
+            "https://project-sosmed-if12hlcfo-orpheros-projects.vercel.app/assets/cat-catcry-CrozeATC.gif"   // Third GIF
+        ];
+
+        // Function for Yes Button
+        function showYesMessage() {
+            alert("Yay! ❤️ Can't wait for our date!");
+        }
+
+        // Function for No Button (moves it away)
+        function moveNoButton() {
+            const button = document.getElementById('no-button');
+            const maxWidth = window.innerWidth - 150; // Account for button width
+            const maxHeight = window.innerHeight - 50; // Account for button height
+            
+            const randomX = Math.random() * maxWidth;
+            const randomY = Math.random() * maxHeight;
+
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+        }
+
+        // Function for No Button (animation and emojis on click)
+        function animateNoButton() {
+            const messageElement = document.getElementById("message");
+            const button = document.getElementById('no-button');
+            const gifContainer = document.getElementById('gif-container');
+            const yesButton = document.getElementById('yes-button');
+            const gifImage = document.getElementById("gif");
+
+            // Show GIF in center
+            gifContainer.style.display = "block";
+
+            // Shrink and change color of the No button
+            button.style.transform = "scale(0.8)";
+            button.style.backgroundColor = "#dcdcdc"; // Change to grey color
+
+            // Increase size of Yes button (double its size each time)
+            yesButtonScale *= 1.5; // Increase by 1.5x each time
+            yesButton.style.transform = `scale(${yesButtonScale})`; // Apply the new scale factor
+
+            // Increment the "No" button click counter
+            noButtonClickCount++;
+
+            // If the "No" button is clicked 3 times, hide it
+            if (noButtonClickCount >= 2) {
+                button.style.display = "none";  // Make the No button invisible
+            }
+
+            // Change the text based on how many times "No" has been clicked
+            if (noButtonClickCount < messages.length) {
+                messageElement.style.display = "block"
+                messageElement.innerText = messages[noButtonClickCount];  // Update text
+            }
+
+            // Change the GIF based on click count
+            if (noButtonClickCount < gifs.length) {
+                gifImage.src = gifs[noButtonClickCount];  // Update GIF source
+            }
+
+
+            // After animation ends, reset the button
+            setTimeout(() => {
+                button.style.opacity = 1;  // Restore original opacity
+                button.style.transform = "scale(1)";  // Restore original size
+                button.style.backgroundColor = "#ff3b7d";  // Restore original color
+            }, 500);  // Reset after 2 seconds
+        }
     </script>
 </body>
 </html>
