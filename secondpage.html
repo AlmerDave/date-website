@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Would You Go Out With Me?</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0e7ff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #9b59b6;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Heart Decorations */
+        .heart {
+            color: red;
+            font-size: 2rem;
+            position: absolute;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* Buttons */
+        .button-container {
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;  /* add space between the question and buttons */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Different colors for each button */
+        #monday-button {
+            background-color: #ff3b7d;
+        }
+
+        #tuesday-button {
+            background-color: #ff6f61;
+        }
+
+        #wednesday-button {
+            background-color: #ffab40;
+        }
+
+        #thursday-button {
+            background-color: #4caf50;
+        }
+
+        #friday-button {
+            background-color: #2196f3;
+        }
+
+        #saturday-button {
+            background-color: #9c27b0;
+        }
+
+        #sunday-button {
+            background-color: #f44336;
+        }
+
+        button:hover {
+            background-color: #e6336d;
+        }
+
+        /* Centered GIF (Positioned Above) */
+        .gif-container {
+            display: none;
+            position: relative;  /* Set relative to allow positioning within the body */
+            top: -70px;  /* Move the GIF above the text */
+            left: 0%;
+            transform: translateX(0%);  /* Center horizontally */
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 50vw;  /* 40% of the viewport's width */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;  /* Ensure it doesn't exceed the container's width */
+        }
+
+        #message {
+            display: none;
+        }
+
+        
+        /* Sparkle Effect */
+        .sparkle {
+            position: relative;
+            font-size: 1.5rem;
+            animation: sparkle-animation 1s linear infinite;
+        }
+
+        @keyframes sparkle-animation {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(0); opacity: 1; }
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Decorative Hearts -->
+    <div class="heart" style="top: 20%; left: 10%;">❤️</div>
+    <div class="heart" style="top: 50%; right: 15%;">❤️</div>
+    <div class="heart" style="bottom: 10%; left: 30%;">❤️</div>
+
+    <!-- Main Content -->
+    <h1>When are you free? ( ͡♥ 3 ͡♥)</h1>
+    <div class="button-container">
+        <button id="monday-button" onclick="moveMondayButton()">Monday</button>
+        <button id="tuesday-button" onclick="moveTuesdayButton()">Tuesday</button>
+        <button id="wednesday-button" onclick="moveWednesdayButton()">Wednesday</button>
+        <button id="thursday-button" onclick="moveThursdayButton()">Thursday</button>
+        <button id="friday-button" onclick="moveFridayButton()">Friday</button>
+        <button id="saturday-button" onclick="moveSaturdayButton()">Saturday</button>
+        <button id="sunday-button" onclick="moveSundayButton()">Sunday</button>
+    </div>
+
+    <!-- Decorative Hearts -->
+    <div class="heart" style="bottom: 20%; right: 20%;">❤️</div>
+    <div class="heart" style="top: 60%; left: 40%;">❤️</div>
+
+    <!-- JavaScript -->
+    <script>
+
+        let yesButtonScale = 1;  // Initial scale factor of 1 (no scaling)
+        let noButtonClickCount = 0;
+
+        // Array of different GIFs for each "No" click
+        const gifs = [
+            "https://media.giphy.com/media/OjiSLBg7s27kaIGS8o/giphy.gif?cid=790b7611j7jazxljtc1d3qhbwbo7xkuhd6v6jir55ogy4165&ep=v1_gifs_search&rid=giphy.gif&ct=g",  // First GIF
+            "https://media.tenor.com/4Lx669r2CS8AAAAM/dudu-crying-dudu-cute.gif",  // Second GIF
+            "https://project-sosmed-if12hlcfo-orpheros-projects.vercel.app/assets/cat-catcry-CrozeATC.gif"   // Third GIF
+        ];
+
+        // Function for Yes Button
+        function showYesMessage() {
+            window.location.href = "secondpage.html";
+        }
+
+        // Function for Button (moves it away)
+        function moveMondayButton() {
+            const mondayButton = document.getElementById('monday-button');
+            button.classList.add('sparkle');
+        }
+
+        function moveTuesdayButton() {
+            const button = document.getElementById('tuesday-button');
+            movingButton(button);
+        }
+
+        function moveWednesdayButton() {
+            const button = document.getElementById('wednesday-button');
+            movingButton(button);
+        }
+
+        function moveThursdayButton() {
+            const button = document.getElementById('thursday-button');
+            movingButton(button);
+        }
+
+        function moveFridayButton() {
+            const button = document.getElementById('friday-button');
+            movingButton(button);
+        }
+
+        function moveSaturdayButton() {
+            const button = document.getElementById('saturday-button');
+            movingButton(button);
+        }
+
+        function moveSundayButton() {
+            const button = document.getElementById('sunday-button');
+            movingButton(button);
+        }
+
+
+        function movingButton(button) {
+            // Set a smaller range for the movement (e.g., within 50px from its original position)
+            const moveDistance = 250;  // Define the distance the button will move
+
+            if(noButtonClickCount >= 3) {
+                const mondayButton = document.getElementById('monday-button');
+                mondayButton.classList.add('sparkle');
+
+                // Function to add sparkle class after 2 seconds
+                setTimeout(function() {
+                    const button = document.getElementById('monday-button');
+                    button.classList.remove('sparkle');
+                }, 2000); // 2000ms = 2 seconds
+            }
+
+            noButtonClickCount++;
+
+            
+            // Get the current position of the button
+            const buttonRect = button.getBoundingClientRect();
+            const currentX = buttonRect.left;
+            const currentY = buttonRect.top;
+            
+            // Calculate the new position within a small range
+            const randomX = (Math.random() * moveDistance * 2 - moveDistance); // Random move within the range of -50 to +50px
+            const randomY = (Math.random() * moveDistance * 2 - moveDistance); // Random move within the range of -50 to +50px
+            
+            console.log(Math.random());
+            console.log("currentX", currentX);
+            // Apply the new position to the button
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+
+        }
+
+        // Redirect to index.html on page reload
+        if (performance.navigation.type === 1) {
+            // Check if the page was reloaded (navigation type 1 means reloading)
+            window.location.href = "index.html";
+        }
+
+    </script>
+</body>
+</html>

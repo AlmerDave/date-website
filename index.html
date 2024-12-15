@@ -80,13 +80,38 @@
         }
 
         .gif-container img {
-            width: 30vw;  /* 40% of the viewport's width */
+            width: 50vw;  /* 40% of the viewport's width */
             height: auto; /* Maintain aspect ratio */
             max-width: 100%;  /* Ensure it doesn't exceed the container's width */
         }
 
         #message {
             display: none;
+        }
+
+        /* Cute Bounce Effect */
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .cute-bounce {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ffd700;
+            animation: sparkle-animation 1s linear infinite;
+        }
+
+        @keyframes sparkle-animation {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(0); opacity: 1; }
         }
 
 
@@ -106,7 +131,7 @@
     </div>
 
     <!-- Main Content -->
-    <h1>Would you like to go out with me for a date?</h1>
+    <h1 id="main-content">Would you like to go out with me for a date?</h1>
     <div class="button-container">
         <button id="yes-button" onclick="showYesMessage()">Yes</button>
         <button id="no-button" onclick="animateNoButton()">No</button>
@@ -121,6 +146,7 @@
 
         let yesButtonScale = 1;  // Initial scale factor of 1 (no scaling)
         let noButtonClickCount = -1;
+        let clickOnce = false;
 
         // Array of messages to change after each "No" click
         const messages = [
@@ -137,21 +163,44 @@
         ];
 
         // Function for Yes Button
+        // Function for Yes Button
         function showYesMessage() {
-            alert("Yay! ❤️ Can't wait for our date!");
-        }
-
-        // Function for No Button (moves it away)
-        function moveNoButton() {
+            const messageElement = document.getElementById("message");
+            const mainContentElement = document.getElementById("main-content"); 
             const button = document.getElementById('no-button');
-            const maxWidth = window.innerWidth - 150; // Account for button width
-            const maxHeight = window.innerHeight - 50; // Account for button height
-            
-            const randomX = Math.random() * maxWidth;
-            const randomY = Math.random() * maxHeight;
+            const gifContainer = document.getElementById('gif-container');
+            const yesButton = document.getElementById('yes-button');
+            const gifImage = document.getElementById("gif");
 
-            button.style.left = randomX + 'px';
-            button.style.top = randomY + 'px';
+            // Add cute bounce animation to the Yes button
+            yesButton.classList.add('cute-bounce');
+
+            yesButton.style.transform = "scale(1)";
+            // Set the font size
+            yesButton.style.fontSize = "12px"; // You can use px, em, rem, or % values
+            
+            // Hide the message element
+            messageElement.style.display = "none";
+            button.style.display = "none"
+
+            // Change the GIF
+            gifContainer.style.display = "block";
+            gifImage.src = "https://media.tenor.com/KNiXTCA36YYAAAAj/bubu-dudu-sseeyall.gif";  // New GIF URL
+
+            // Set the main content to "YEAYYY!!! DON'T GO ANYWHERE"
+            mainContentElement.innerHTML = "YEAYYY!!! DON'T GO ANYWHERE";
+
+            // Change the button text
+            yesButton.innerHTML = "(づ ◕‿◕ )づ=== CLICK ME === =＾● ⋏ ●＾= ლ(´◉❥◉｀ლ)";
+
+            // Prevent double-clicks: if clickOnce is true, return early
+            if (!clickOnce) {
+                clickOnce = true;
+                return;
+            }
+
+            // Redirect to second page after the animation and message update
+            window.location.href = "secondpage.html"; 
         }
 
         // Function for No Button (animation and emojis on click)
