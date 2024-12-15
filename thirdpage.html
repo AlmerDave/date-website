@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Would You Go Out With Me?</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0e7ff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #9b59b6;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Heart Decorations */
+        .heart {
+            color: red;
+            font-size: 2rem;
+            position: absolute;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* Buttons */
+        .button-container {
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;  /* add space between the question and buttons */
+        }
+
+        #yes-button {
+            margin-right: 20px;
+        }
+
+        button {
+            background-color: #ff3b7d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        button:hover {
+            background-color: #e6336d;
+        }
+
+        /* Centered GIF (Positioned Above) */
+        .gif-container {
+            display: block;
+            position: relative;  /* Set relative to allow positioning within the body */
+            top: -70px;  /* Move the GIF above the text */
+            left: 0%;
+            transform: translateX(0%);  /* Center horizontally */
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 50vw;  /* 40% of the viewport's width */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;  /* Ensure it doesn't exceed the container's width */
+        }
+
+        #message {
+            display: none;
+        }
+
+        /* Cute Bounce Effect */
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .cute-bounce {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ffd700;
+            animation: sparkle-animation 1s linear infinite;
+        }
+
+        @keyframes sparkle-animation {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(0); opacity: 1; }
+        }
+
+        /* Slider */
+        .slider-container {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #excitement-slider {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #ff3b7d;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+
+        #excitement-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        }
+
+        #excitement-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Slider Label */
+        #slider-value {
+            font-size: 1.2rem;
+            color: #9b59b6;
+            margin-top: 10px;
+        }
+
+        /* Animated Hearts */
+        .hearts-animation {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            font-size: 2rem;
+            animation: heartsAnimation 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartsAnimation {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            25% { opacity: 0.5; transform: translateY(-20px) scale(1.1); }
+            50% { opacity: 1; transform: translateY(0) scale(1); }
+            75% { opacity: 0.5; transform: translateY(20px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Decorative Hearts -->
+    <div class="heart" style="top: 20%; left: 10%;">❤️</div>
+    <div class="heart" style="top: 50%; right: 15%;">❤️</div>
+    <div class="heart" style="bottom: 10%; left: 30%;">❤️</div>
+
+    <!-- Centered GIF -->
+    <div class="gif-container" id="gif-container">
+        <img id="gif" src="https://media.tenor.com/0DizP7Vn0LMAAAAj/tkthao219-bubududu.gif" alt="Sad GIF">
+    </div>
+
+    <!-- Main Content -->
+    <h1 id="main-content">Rate how exited are you</h1>
+
+    <!-- Heart Animation that reacts to slider -->
+    <div class="hearts-animation" id="heart-animation">
+        <span>❤️</span>
+        <span>❤️</span>
+        <span>❤️</span>
+    </div>
+    
+    <!-- Slider for excitement level -->
+    <div class="slider-container">
+        <input type="range" id="excitement-slider" min="0" max="100" value="0">
+        <p id="slider-value">Excitement: 0</p>
+    </div>
+
+
+    <div class="button-container">
+        <button id="yes-button" onclick="redirectToFinalPage()">Continue ⊂(・ヮ・⊂)</button>
+    </div>
+
+    <!-- Decorative Hearts -->
+    <div class="heart" style="bottom: 20%; right: 20%;">❤️</div>
+    <div class="heart" style="top: 60%; left: 40%;">❤️</div>
+
+    <!-- JavaScript -->
+    <script>
+
+        const slider = document.getElementById('excitement-slider');
+        const sliderValue = document.getElementById('slider-value');
+        const heartAnimation = document.getElementById('heart-animation');
+        const gif = document.getElementById('gif');
+
+        // Update the excitement value text
+        slider.addEventListener('input', () => {
+            sliderValue.textContent = `Excitement: ${slider.value}`;
+            
+            // Adjust heart animation speed based on slider value
+            heartAnimation.style.animationDuration = `${(101 - slider.value) / 10}s`;
+
+             // Show or hide the GIF based on excitement value
+             if (slider.value < 20) {
+                // Happy excitement, show a positive GIF
+                gif.src = 'https://i.pinimg.com/originals/9e/49/7f/9e497f8c506f6a79c406e347634ecdb5.gif';  // Happy GIF
+            } else if (slider.value < 40) {
+                // Low excitement, show a sad GIF or hide it
+                gif.src = 'https://media.tenor.com/A0zSm8XszmUAAAAj/bubu-dudu-sseeyall.gif';  // Sad GIF
+                gifContainer.style.display = 'block';
+            } else if (slider.value < 60) {
+                // Low excitement, show a sad GIF or hide it
+                gif.src = 'https://media.tenor.com/F9Q3thp6tzUAAAAj/bubu-bubu-dudu.gif';  // Sad GIF
+                gifContainer.style.display = 'block';
+            } else if (slider.value < 80) {
+                // Low excitement, show a sad GIF or hide it
+                gif.src = 'https://media.tenor.com/WVwecUpDuk8AAAAM/bubu-dudu.gif';  // Sad GIF
+                gifContainer.style.display = 'block';
+            } else if (slider.value > 90) {
+                // Low excitement, show a sad GIF or hide it
+                gif.src = 'https://i.pinimg.com/originals/f5/e0/a5/f5e0a5e748b2dc73bdec6ba0aca0a083.gif';  // Sad GIF
+                gifContainer.style.display = 'block';
+            }
+        });
+
+
+
+        function redirectToFinalPage() {
+            window.location.href = "finalpage.html"; 
+        }
+
+        // Redirect to index.html on page reload
+        if (performance.navigation.type === 1) {
+            // Check if the page was reloaded (navigation type 1 means reloading)
+            window.location.href = "index.html";
+        }
+        
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See You Soon</title>
+    <style>
+        body {
+            background-color: #f0e7ff;
+            color: #ff6fa4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        img {
+            border-radius: 20%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6fa4;
+            clip-path: polygon(50% 0%, 100% 35%, 75% 100%, 50% 75%, 25% 100%, 0% 35%);
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+
+        /* Centered GIF (Positioned Above) */
+        .gif-container {
+            display: block;
+            position: relative;  /* Set relative to allow positioning within the body */
+            top: -70px;  /* Move the GIF above the text */
+            left: 0%;
+            transform: translateX(0%);  /* Center horizontally */
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 50vw;  /* 40% of the viewport's width */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;  /* Ensure it doesn't exceed the container's width */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gif-container" id="gif-container">
+            <img id="gif" src="https://project-sosmed-if12hlcfo-orpheros-projects.vercel.app/assets/happy-cat-edRMqV7a.gif" alt="Sad GIF">
+        </div>
+        <h1>See you soon! ❤️</h1>
+        <p>Don't forget on Monday (2024-12-16)</p>
+    </div>
+
+    <div class="hearts">
+        <!-- Add floating hearts -->
+        <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="heart" style="left: 70%; animation-delay: 4s;"></div>
+    </div>
+</body>
+</html>
